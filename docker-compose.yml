@@ -33,7 +33,7 @@ services:
 
   api:
     container_name: lago-api
-    image: getlago/api:v0.53.0-beta
+    image: fliqa/lagoapi:v0.53.0-beta
     restart: unless-stopped
     depends_on:
       - db
