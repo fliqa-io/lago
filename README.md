@@ -90,7 +90,7 @@ To start using Lago, run the following commands in a shell:
 
 ```
 # Get the code
-git clone https://github.com/getlago/lago.git
+git clone https://github.com/fliqa-io/lago.git
 
 # Go to Lago folder
 cd lago
