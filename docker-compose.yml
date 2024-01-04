@@ -48,6 +48,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
       - RAILS_ENV=production
+      - RAILS_LOG_LEVEL=warn
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
       - LAGO_FRONT_URL=${LAGO_FRONT_URL:-http://localhost}
@@ -134,6 +135,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
       - RAILS_ENV=production
+      - RAILS_LOG_LEVEL=warn
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
       - LAGO_RSA_PRIVATE_KEY=${LAGO_RSA_PRIVATE_KEY} # Should be base64 encoded
@@ -212,6 +214,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
       - RAILS_ENV=production
+      - RAILS_LOG_LEVEL=warn
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
       - LAGO_RSA_PRIVATE_KEY=${LAGO_RSA_PRIVATE_KEY} # Should be base64 encoded
