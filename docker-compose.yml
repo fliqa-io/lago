@@ -52,6 +52,7 @@ services:
       - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
+      - LAGO_LOG_LEVEL=info
       - RAILS_ENV=production
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
@@ -87,7 +88,7 @@ services:
 
   front:
     container_name: lago-front
-    image: getlago/front:v0.53.3-beta
+    image: fliqa/lagofront:v0.56.0-beta
     restart: unless-stopped
     # Use this command if you want to use SSL with Let's Encrypt
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
@@ -140,6 +141,7 @@ services:
       - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
+      - LAGO_LOG_LEVEL=info
       - RAILS_ENV=production
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
@@ -220,6 +222,7 @@ services:
       - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
+      - LAGO_LOG_LEVEL=info
       - RAILS_ENV=production
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
