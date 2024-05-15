@@ -22,7 +22,7 @@ services:
       - ${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}
 
   redis:
-    image: redis:6-alpine
+    image: redis:6.2-alpine
     container_name: lago-redis
     restart: unless-stopped
     command: --port ${REDIS_PORT:-6379}
@@ -33,7 +33,7 @@ services:
 
   api:
     container_name: lago-api
-    image: getlago/api:v1.2.1
+    image: fliqa/lagoapi:v1.2.1
     restart: unless-stopped
     depends_on:
       - db
@@ -52,6 +52,7 @@ services:
       - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
+      - LAGO_LOG_LEVEL=debug
       - RAILS_ENV=production
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
@@ -77,7 +78,6 @@ services:
       - LAGO_DISABLE_SEGMENT=${LAGO_DISABLE_SEGMENT}
       - LAGO_OAUTH_PROXY_URL=https://proxy.getlago.com
       - LAGO_LICENSE=${LAGO_LICENSE:-}
-      - NANGO_SECRET_KEY=${NANGO_SECRET_KEY}
       # - SIDEKIQ_EVENTS=true
     volumes:
       - lago_storage_data:/app/storage
@@ -88,7 +88,7 @@ services:
 
   front:
     container_name: lago-front
-    image: getlago/front:v1.2.1
+    image: fliqa/lagofront:v1.2.1
     restart: unless-stopped
     # Use this command if you want to use SSL with Let's Encrypt
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
@@ -128,7 +128,7 @@ services:
 
   api-worker:
     container_name: lago-worker
-    image: getlago/api:v1.2.1
+    image: fliqa/lagoapi:v1.2.1
     restart: unless-stopped
     depends_on:
       api:
@@ -142,6 +142,7 @@ services:
       - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
+      - LAGO_LOG_LEVEL=debug
       - RAILS_ENV=production
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
@@ -173,7 +174,7 @@ services:
   # It is recommendend if you have a high usage of events to not impact the other Sidekiq Jobs.
   #api-events-worker:
   #  container_name: lago-events-worker
-  #  image: getlago/api:v1.2.1
+  #  image: getlago/api:v0.56.0-beta
   #  restart: unless-stopped
   #  depends_on:
   #    api:
@@ -207,12 +208,11 @@ services:
   #    - LAGO_REDIS_CACHE_URL=redis://${LAGO_REDIS_CACHE_HOST:-redis}:${LAGO_REDIS_CACHE_PORT:-6379}
   #    - LAGO_REDIS_CACHE_PASSWORD=${LAGO_REDIS_CACHE_PASSWORD}
   #    - LAGO_DISABLE_SEGMENT=${LAGO_DISABLE_SEGMENT}
-  #    - NANGO_SECRET_KEY=${NANGO_SECRET_KEY}
   #    - SIDEKIQ_EVENTS=true
 
   api-clock:
     container_name: lago-clock
-    image: getlago/api:v1.2.1
+    image: fliqa/lagoapi:v1.2.1
     restart: unless-stopped
     depends_on:
       api:
@@ -224,6 +224,7 @@ services:
       - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-your-secret-key-base-hex-64}
+      - LAGO_LOG_LEVEL=info
       - RAILS_ENV=production
       - RAILS_LOG_TO_STDOUT=${LAGO_RAILS_STDOUT:-true}
       - SENTRY_DSN=${SENTRY_DSN}
